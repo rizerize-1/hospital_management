@@ -153,8 +153,10 @@ CREATE TABLE Users (
     Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create indexes for performance optimization
-CREATE INDEX idx_patient_name ON Patients(PatientName);
-CREATE INDEX idx_doctor_name ON Doctors(DoctorName);
-CREATE INDEX idx_appointment_date ON Appointments(AppointmentDate);
-CREATE INDEX idx_invoice_date ON Invoices(InvoiceDate);
+ALTER TABLE Billing
+ADD COLUMN Service_id INT,
+ADD COLUMN Room_id INT,
+ADD COLUMN Medicine_id INT,
+ADD FOREIGN KEY (Service_id) REFERENCES Services(Service_id),
+ADD FOREIGN KEY (Room_id) REFERENCES Rooms(Room_id),
+ADD FOREIGN KEY (Medicine_id) REFERENCES Medicine(Medicine_id);
